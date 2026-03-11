@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Boda Amairani y Luis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --olive-primary: #556B2F; 
+            --olive-dark: #3B4D1E;
+            --gold-accent: #CCA461;
+            --cream-bg: #FCFAF7;
+            --beige-bg: #F4F1EA;
+            --text-dark: #2C3324;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--olive-dark); }
+        .script-font { font-family: 'Great Vibes', cursive; font-weight: normal; }
+
+        .monogram-lg {
+            width: 100px; height: 100px; object-fit: contain;
+            margin: 0 auto 20px; border-radius: 50%;
+        }
+        
+        .polaroid-monogram-img {
+            position: absolute; bottom: 10px; right: 10px;
+            width: 35px; opacity: 0.7;
+        }
+
+        .welcome-monogram {
+            width: 100px; height: 100px; object-fit: cover;
+            margin: 0 auto 10px; border-radius: 50%; border: 2px solid var(--gold-accent);
+        }
+
+        /* --- PANTALLA DE BIENVENIDA --- */
+        #welcome-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--cream-bg); z-index: 10000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 20px; transition: opacity 0.8s ease;
+        }
+        .enter-btn {
+            margin-top: 25px; padding: 12px 35px;
+            background: var(--olive-primary); color: white;
+            border: 2px solid var(--gold-accent); border-radius: 30px;
+            font-size: 1.1rem; letter-spacing: 2px; cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* --- SECCIÓN 1: FRASE INICIAL --- */
+        .initial-verse-section {
+            padding: 60px 25px 40px; text-align: center; background: var(--cream-bg);
+        }
+        .main-verse {
+            font-size: 1.8rem; line-height: 1.4; color: var(--olive-primary);
+            margin-bottom: 15px; animation: fadeUp 2s ease forwards;
+        }
+        .verse-ref { font-size: 0.9rem; letter-spacing: 3px; color: var(--gold-accent); text-transform: uppercase; }
+
+        /* --- SECCIÓN 2: CARRUSEL --- */
+        .carousel-container {
+            position: relative; width: 100%; height: 50vh; min-height: 350px;
+            overflow: hidden; border-top: 3px solid var(--gold-accent); border-bottom: 3px solid var(--gold-accent);
+        }
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0; transition: opacity 1.5s ease-in-out, transform 6s ease; transform: scale(1.05);
+        }
+        .slide.active { opacity: 1; transform: scale(1); }
+
+        /* --- SECCIÓN 3: INVITACIÓN FORMAL --- */
+        .formal-section {
+            padding: 60px 20px; text-align: center;
+            background-color: var(--cream-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+        }
+        .couple-names h1 { font-size: 3.5rem; line-height: 1.1; color: var(--olive-dark); margin: 10px 0; }
+        .couple-names .and { font-size: 1.5rem; color: var(--gold-accent); letter-spacing: 3px; }
+        
+        .parents-block { margin: 40px 0; }
+        .parents-title { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-accent); margin-bottom: 15px; font-weight: 600;}
+        .parents-names { 
+            font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height: 1.6; color: var(--text-dark); 
+            display: block; padding: 0 10px; margin: 5px auto;
+        }
+        .separator-line { color: var(--gold-accent); margin: 0 8px; font-size: 1.2rem; font-weight: 600; }
+        
+        .genesis-verse { 
+            margin-top: 40px; padding: 25px; background: var(--beige-bg); 
+            border-radius: 8px; border-left: 3px solid var(--olive-primary);
+        }
+
+        /* --- SECCIÓN 4: CALENDARIO --- */
+        .calendar-section { padding: 60px 20px; background: var(--olive-dark); color: white; text-align: center; }
+        .elegant-calendar {
+            background: var(--cream-bg); color: var(--olive-dark); padding: 25px; 
+            border-radius: 10px; max-width: 350px; margin: 0 auto;
+            border: 2px solid var(--gold-accent); box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; font-family: 'Playfair Display', serif; margin-top: 15px; }
+        .cal-day { padding: 8px 2px; font-size: 1.1rem; }
+        .special-day { position: relative; font-weight: bold; color: var(--olive-primary); display: flex; justify-content: center; align-items: center; }
+        .heart-svg { position: absolute; width: 40px; height: 40px; pointer-events: none; }
+        .heart-path { fill: none; stroke: var(--gold-accent); stroke-width: 2; stroke-dasharray: 160; stroke-dashoffset: 160; animation: drawHeart 2.5s ease-in-out infinite alternate; }
+        @keyframes drawHeart { to { stroke-dashoffset: 0; opacity: 1; } }
+
+        /* --- SECCIÓN 5: UBICACIONES --- */
+        .locations-section { 
+            padding: 70px 20px; text-align: center;
+            background: linear-gradient(rgba(85, 107, 47, 0.08), rgba(85, 107, 47, 0.08)), url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            background-color: var(--beige-bg); border-top: 1px solid var(--gold-accent);
+        }
+        .location-block { margin-bottom: 50px; padding-bottom: 30px; border-bottom: 1px solid rgba(204, 164, 97, 0.3); }
+        .location-block i { font-size: 3rem; color: var(--gold-accent); margin-bottom: 20px; display: inline-block; animation: iconPulse 3s ease-in-out infinite; }
+        .map-btn {
+            display: inline-block; padding: 12px 25px; background: var(--olive-primary); color: white;
+            text-decoration: none; border-radius: 25px; font-size: 0.9rem; margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(85, 107, 47, 0.3); transition: all 0.3s ease;
+        }
+
+        /* --- CONTADOR --- */
+        .countdown-section { padding: 40px 20px; background: var(--beige-bg); text-align: center; }
+        .timer-flex { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .time-box { background: var(--olive-primary); color: white; padding: 10px; border-radius: 5px; min-width: 65px; }
+        .time-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; display: block; font-weight: 700; }
+        .time-lbl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- SECCIÓN GALERÍA POLAROID --- */
+        .polaroid-section {
+            padding: 80px 10px; background-color: var(--gold-accent);
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            text-align: center; overflow: hidden; position: relative;
+        }
+        .polaroid-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 0; max-width: 900px; margin: 0 auto; }
+        .polaroid-card {
+            background: white; padding: 10px 10px 45px 10px;
+            width: 42%; max-width: 200px; box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+            position: relative; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: -10px -5px; cursor: pointer;
+        }
+        .polaroid-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; filter: sepia(10%); }
+        
+        .polaroid-card.focused {
+            position: fixed; top: 50%; left: 50%; width: 85vw; max-width: 400px;
+            transform: translate(-50%, -50%) rotate(0deg) !important;
+            z-index: 9999; box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 0;
+        }
+        .overlay-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 9998; display: none; backdrop-filter: blur(5px);
+        }
+        .overlay-backdrop.active { display: block; }
+        
+        .polaroid-card:nth-child(even) { transform: rotate(4deg); margin-top: 20px; }
+        .polaroid-card:nth-child(odd) { transform: rotate(-5deg); }
+
+        /* --- SECCIÓN RSVP SIMULADA --- */
+        .rsvp-section { padding: 70px 20px; text-align: center; background: var(--cream-bg); }
+        .rsvp-mockup {
+            background: white; padding: 40px 20px; border-radius: 10px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 4px solid var(--olive-primary);
+            max-width: 500px; margin: 0 auto;
+        }
+        .rsvp-input-demo {
+            width: 100%; height: 40px; background: #f9f9f9; border: 1px solid #eee;
+            margin: 10px 0; border-radius: 5px;
+        }
+
+        .footer-quote { padding: 50px 20px; background: var(--olive-dark); color: var(--gold-accent); text-align: center; }
+        .final-phrase { font-family: 'Great Vibes', cursive; font-size: 1.8rem; }
+
+        .music-control {
+            position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px;
+            background: var(--gold-accent); color: var(--olive-dark); border-radius: 50%;
+            display: none; justify-content: center; align-items: center; z-index: 100;
+        }
+
+        @keyframes fadeUp { from { opacity:0; transform: translateY(20px);} to { opacity:1; transform: translateY(0);} }
+        @keyframes iconPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .scroll-animate { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+        .scroll-visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <div class="overlay-backdrop" id="backdrop" onclick="closeAllPolaroids()"></div>
+
+    <div id="welcome-screen">
+        <img src="https://images.unsplash.com/photo-1511285560982-1351cdeb9821?auto=format&fit=crop&w=500" alt="Novios" class="welcome-monogram" />
+        <h2 style="font-size: 1.5rem; color: var(--olive-dark);">Amairani & Luis</h2>
+        <p style="margin-top:15px; font-size: 1rem;">Nuestra historia continúa aquí.<br>Por favor, activa el sonido.</p>
+        <button class="enter-btn" onclick="enterSite()"><i class="fas fa-volume-up"></i> Ver Invitación</button>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-control" onclick="toggleMusic()">
+        <i class="fas fa-music" id="music-icon"></i>
+    </div>
+
+    <section class="initial-verse-section">
+        <h2 class="script-font main-verse">"Andábamos sin buscarnos, pero sabiendo que andábamos para encontrarnos."</h2>
+        <p class="verse-ref">— Julio Cortázar</p>
+    </section>
+
+    <div class="carousel-container">
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200');"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1511285560982-1351cdeb9821?auto=format&fit=crop&w=1200');"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200');"></div>
+    </div>
+
+    <section class="formal-section scroll-animate">
+        <img src="https://images.unsplash.com/photo-1511285560982-1351cdeb9821?auto=format&fit=crop&w=500" alt="Novios" class="monogram-lg" />
+        <p class="intro-quote" style="font-style: italic; color: var(--olive-primary); margin-bottom: 20px;">El destino nos unió, pero el amor nos mantendrá juntos por siempre…</p>
+        
+        <div class="couple-names">
+            <h1 class="script-font">Amairani</h1>
+            <span class="and">&</span>
+            <h1 class="script-font">Luis</h1>
+        </div>
+
+        <div class="parents-block">
+            <p class="parents-title">Con el amor y apoyo de nuestros padres:</p>
+            <p class="parents-names">Mamá de la novia <span class="separator-line">|</span> Papá de la novia</p>
+            <p class="parents-names">Mamá del novio <span class="separator-line">|</span> Papá del novio</p>
+        </div>
+
+        <div class="genesis-verse scroll-animate">
+            <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem;">“Dondequiera que vayas, iré yo; dondequiera que vivas, viviré yo.”</p>
+            <p class="verse-ref" style="margin-top: 10px;">- Nuestra Promesa</p>
+        </div>
+    </section>
+
+    <section class="calendar-section scroll-animate">
+        <h2 class="script-font" style="color: var(--gold-accent); font-size: 2.5rem; margin-bottom: 20px;">Reserva la Fecha</h2>
+        <div class="elegant-calendar">
+            <div style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Mayo 2026</div>
+            <div class="cal-grid">
+                <div style="color:var(--gold-accent); font-weight:bold;">D</div><div style="color:var(--gold-accent); font-weight:bold;">L</div><div style="color:var(--gold-accent); font-weight:bold;">M</div><div style="color:var(--gold-accent); font-weight:bold;">M</div><div style="color:var(--gold-accent); font-weight:bold;">J</div><div style="color:var(--gold-accent); font-weight:bold;">V</div><div style="color:var(--gold-accent); font-weight:bold;">S</div>
+                <div></div><div></div><div></div><div></div><div></div><div class="cal-day">1</div><div class="cal-day">2</div>
+                <div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div>
+                <div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div>
+                <div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div>
+                <div class="cal-day special-day">23 <svg class="heart-svg" viewBox="0 0 50 50"><path class="heart-path" d="M25,45 C25,45 5,30 5,15 C5,5 15,5 25,15 C35,5 45,5 45,15 C45,30 25,45 25,45 Z"/></svg></div>
+                <div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
+                <div class="cal-day">31</div>
+            </div>
+            <div style="margin-top: 20px; font-weight: 600; color: var(--olive-primary);">Sábado, 6:00 PM</div>
+        </div>
+    </section>
+
+    <section class="locations-section scroll-animate">
+        <div class="location-block">
+            <i class="fas fa-ring"></i> <h3>Ceremonia y Recepción</h3>
+            <p>Sábado 23 de mayo 2026 - 18:00 hrs</p>
+            <p><strong>Azimuth</strong><br>Ciudad del Carmen, Campeche.</p>
+            <a href="https://maps.app.goo.gl/dw8duDua7FgM2WLt8" target="_blank" class="map-btn">Ver Ubicación en Mapa</a>
+        </div>
+    </section>
+
+    <section class="countdown-section">
+        <h3 style="text-transform: uppercase; letter-spacing: 2px; color: var(--olive-dark);">¡Nos Casamos en!</h3>
+        <div class="timer-flex">
+            <div class="time-box"><span class="time-num" id="days">00</span><span class="time-lbl">Días</span></div>
+            <div class="time-box"><span class="time-num" id="hours">00</span><span class="time-lbl">Hrs</span></div>
+            <div class="time-box"><span class="time-num" id="minutes">00</span><span class="time-lbl">Min</span></div>
+            <div class="time-box"><span class="time-num" id="seconds">00</span><span class="time-lbl">Seg</span></div>
+        </div>
+    </section>
+
+    <section class="polaroid-section">
+        <h2 class="script-font" style="font-size: 2.5rem; color: var(--olive-dark); margin-bottom: 30px;">Nuestra Historia</h2>
+        <div class="polaroid-wrapper">
+            <div class="polaroid-card" onclick="focusPolaroid(this)"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=400" class="polaroid-img"></div>
+            <div class="polaroid-card" onclick="focusPolaroid(this)"><img src="https://images.unsplash.com/photo-1522673607200-e635ba2c371e?auto=format&fit=crop&w=400" class="polaroid-img"></div>
+            <div class="polaroid-card" onclick="focusPolaroid(this)"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=400" class="polaroid-img"></div>
+            <div class="polaroid-card" onclick="focusPolaroid(this)"><img src="https://images.unsplash.com/photo-1511285560982-1351cdeb9821?auto=format&fit=crop&w=400" class="polaroid-img"></div>
+            <div class="polaroid-card" onclick="focusPolaroid(this)"><img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=400" class="polaroid-img"></div>
+            <div class="polaroid-card" onclick="focusPolaroid(this)"><img src="https://images.unsplash.com/photo-1532712938310-34cb3958d422?auto=format&fit=crop&w=400" class="polaroid-img"></div>
+            <div class="polaroid-card" onclick="focusPolaroid(this)"><img src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=400" class="polaroid-img"></div>
+            <div class="polaroid-card" onclick="focusPolaroid(this)"><img src="https://images.unsplash.com/photo-1520854221256-17451cc330e7?auto=format&fit=crop&w=400" class="polaroid-img"></div>
+        </div>
+    </section>
+
+    <section class="rsvp-section scroll-animate">
+        <h2 class="script-font" style="font-size: 2.8rem; color: var(--olive-dark);">Confirmar Asistencia</h2>
+        <p style="margin-bottom: 25px;">Por favor, confírmanos antes del 23 de Abril de 2026.</p>
+        <div class="rsvp-mockup">
+            <i class="far fa-envelope-open" style="font-size: 2rem; color: var(--gold-accent); margin-bottom: 10px;"></i>
+            <div class="rsvp-input-demo">Nombre Completo</div>
+            <div class="rsvp-input-demo">¿Asistirás? (Sí / No)</div>
+            <div class="rsvp-input-demo">Número de acompañantes</div>
+            <button class="enter-btn" style="width: 100%; margin-top: 10px;">Confirmar mi lugar</button>
+            <p style="font-size: 0.8rem; color: #999; margin-top: 15px;">* Aquí aparecerá el formulario interactivo.</p>
+        </div>
+    </section>
+
+    <footer class="footer-quote">
+        <p class="final-phrase">"El amor no consiste en mirarse el uno al otro, sino en mirar juntos en la misma dirección."</p>
+    </footer>
+
+    <script>
+        const music = document.getElementById('bg-music');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const musicControl = document.querySelector('.music-control');
+
+        function enterSite() {
+            music.play().then(() => { musicControl.style.display = 'flex'; }).catch(() => { musicControl.style.display = 'flex'; });
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => { welcomeScreen.style.display = 'none'; }, 800);
+        }
+
+        function toggleMusic() {
+            if (music.paused) { music.play(); document.getElementById('music-icon').className = 'fas fa-music'; } 
+            else { music.pause(); document.getElementById('music-icon').className = 'fas fa-pause'; }
+        }
+
+        const weddingDate = new Date('May 23, 2026 18:00:00').getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const gap = weddingDate - now;
+            const second = 1000, minute = second * 60, hour = minute * 60, day = hour * 24;
+            if(gap > 0) {
+               document.getElementById('days').innerText = Math.floor(gap / day);
+               document.getElementById('hours').innerText = Math.floor((gap % day) / hour);
+               document.getElementById('minutes').innerText = Math.floor((gap % hour) / minute);
+               document.getElementById('seconds').innerText = Math.floor((gap % minute) / second);
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        const backdrop = document.getElementById('backdrop');
+        function focusPolaroid(element) {
+            if(element.classList.contains('focused')) { closeAllPolaroids(); } 
+            else { closeAllPolaroids(); element.classList.add('focused'); backdrop.classList.add('active'); }
+        }
+        function closeAllPolaroids() {
+            document.querySelectorAll('.polaroid-card').forEach(card => card.classList.remove('focused'));
+            backdrop.classList.remove('active');
+        }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('scroll-visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
